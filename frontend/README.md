@@ -22,12 +22,12 @@ Compilar para producción: `npm run build` y luego `npm run preview`.
 
 ## Cuentas de prueba (contraseña: `RuralRide2026*`)
 
-| Rol                   | Correo                       |
-| --------------------- | ---------------------------- |
-| Pasajero              | carlos.perez@gmail.com       |
-| Conductor             | juan.lopez@gmail.com         |
-| Conductora y pasajera | rosa.gutierrez@gmail.com     |
-| Administradora        | luzmarina.pabon@ruralride.co |
+| Rol                   | Correo                       | Qué se puede probar                           |
+| --------------------- | ---------------------------- | --------------------------------------------- |
+| Pasajero              | carlos.perez@gmail.com       | Buscar viajes, solicitar cupo, calificar      |
+| Conductor             | juan.lopez@gmail.com         | Vehículos, rutas, publicar viajes, aprobar    |
+| Conductora y pasajera | rosa.gutierrez@gmail.com     | Los dos roles con la misma cuenta             |
+| Administradora        | luzmarina.pabon@ruralride.co | Validación comunitaria de conductores         |
 
 ## Estructura
 
