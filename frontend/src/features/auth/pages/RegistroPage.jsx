@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useData } from '@/context/DataContext.jsx';
 import { useAuth } from '@/context/AuthContext.jsx';
 import { useFormulario } from '@/hooks/useFormulario.js';
-import { Campo, Selector } from '@/components/ui/Campos.jsx';
+import CampoTexto from '@/components/ui/CampoTexto.jsx';
+import CampoSelector from '@/components/ui/CampoSelector.jsx';
 import Alerta from '@/components/ui/Alerta.jsx';
 import * as val from '@/utils/validaciones.js';
 
@@ -111,7 +112,7 @@ export default function RegistroPage() {
           <fieldset className="grupo">
             <legend>Datos personales</legend>
             <div className="rejilla-2">
-              <Selector
+              <CampoSelector
                 id="tipo_documento"
                 etiqueta="Tipo de documento"
                 requerido
@@ -119,7 +120,7 @@ export default function RegistroPage() {
                 opciones={TIPOS}
                 error={form.error('tipo_documento')}
               />
-              <Campo
+              <CampoTexto
                 id="numero_documento"
                 etiqueta="Número de documento"
                 requerido
@@ -128,7 +129,7 @@ export default function RegistroPage() {
                 form={form}
                 error={form.error('numero_documento')}
               />
-              <Campo
+              <CampoTexto
                 id="nombre"
                 etiqueta="Nombres"
                 requerido
@@ -137,7 +138,7 @@ export default function RegistroPage() {
                 form={form}
                 error={form.error('nombre')}
               />
-              <Campo
+              <CampoTexto
                 id="apellido"
                 etiqueta="Apellidos"
                 requerido
@@ -151,7 +152,7 @@ export default function RegistroPage() {
           <fieldset className="grupo">
             <legend>Contacto y ubicación</legend>
             <div className="rejilla-2">
-              <Campo
+              <CampoTexto
                 id="telefono"
                 etiqueta="Celular"
                 type="tel"
@@ -163,7 +164,7 @@ export default function RegistroPage() {
                 form={form}
                 error={form.error('telefono')}
               />
-              <Campo
+              <CampoTexto
                 id="correo"
                 etiqueta="Correo electrónico"
                 type="email"
@@ -173,7 +174,7 @@ export default function RegistroPage() {
                 form={form}
                 error={form.error('correo')}
               />
-              <Selector
+              <CampoSelector
                 id="id_municipio"
                 etiqueta="Municipio"
                 requerido
@@ -181,7 +182,7 @@ export default function RegistroPage() {
                 opciones={municipios}
                 error={form.error('id_municipio')}
               />
-              <Campo
+              <CampoTexto
                 id="vereda_sector"
                 etiqueta="Vereda o sector"
                 maxLength={80}
@@ -194,7 +195,7 @@ export default function RegistroPage() {
           <fieldset className="grupo">
             <legend>Seguridad</legend>
             <div className="rejilla-2">
-              <Campo
+              <CampoTexto
                 id="password"
                 etiqueta="Contraseña"
                 type="password"
@@ -204,7 +205,7 @@ export default function RegistroPage() {
                 form={form}
                 error={form.error('password')}
               />
-              <Campo
+              <CampoTexto
                 id="confirmar"
                 etiqueta="Confirmar contraseña"
                 type="password"

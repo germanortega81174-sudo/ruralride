@@ -3,7 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext.jsx';
 import { useData } from '@/context/DataContext.jsx';
 import { useFormulario } from '@/hooks/useFormulario.js';
-import { Campo, Selector } from '@/components/ui/Campos.jsx';
+import CampoTexto from '@/components/ui/CampoTexto.jsx';
+import CampoSelector from '@/components/ui/CampoSelector.jsx';
 import Alerta from '@/components/ui/Alerta.jsx';
 import Insignia from '@/components/ui/Insignia.jsx';
 import EncabezadoPagina from '@/components/ui/EncabezadoPagina.jsx';
@@ -81,7 +82,7 @@ function FormDatos({ sesion }) {
         </Alerta>
       )}
       <div className="rejilla-2">
-        <Campo
+        <CampoTexto
           id="nombre"
           etiqueta="Nombres"
           requerido
@@ -89,7 +90,7 @@ function FormDatos({ sesion }) {
           form={form}
           error={form.error('nombre')}
         />
-        <Campo
+        <CampoTexto
           id="apellido"
           etiqueta="Apellidos"
           requerido
@@ -97,7 +98,7 @@ function FormDatos({ sesion }) {
           form={form}
           error={form.error('apellido')}
         />
-        <Campo
+        <CampoTexto
           id="telefono"
           etiqueta="Celular"
           type="tel"
@@ -107,7 +108,7 @@ function FormDatos({ sesion }) {
           form={form}
           error={form.error('telefono')}
         />
-        <Campo
+        <CampoTexto
           id="vereda_sector"
           etiqueta="Vereda o sector"
           maxLength={80}
@@ -119,14 +120,14 @@ function FormDatos({ sesion }) {
         <fieldset className="grupo">
           <legend>Contacto de emergencia</legend>
           <div className="rejilla-2">
-            <Campo
+            <CampoTexto
               id="contacto_emergencia_nombre"
               etiqueta="Nombre del contacto"
               maxLength={120}
               form={form}
               error={form.error('contacto_emergencia_nombre')}
             />
-            <Campo
+            <CampoTexto
               id="contacto_emergencia_telefono"
               etiqueta="Teléfono del contacto"
               type="tel"
@@ -200,7 +201,7 @@ function FormConductor({ sesion }) {
         </Alerta>
       )}
       <div className="rejilla-2">
-        <Campo
+        <CampoTexto
           id="numero_licencia"
           etiqueta="Número de licencia"
           requerido
@@ -209,7 +210,7 @@ function FormConductor({ sesion }) {
           form={form}
           error={form.error('numero_licencia')}
         />
-        <Selector
+        <CampoSelector
           id="categoria_licencia"
           etiqueta="Categoría"
           requerido
@@ -217,7 +218,7 @@ function FormConductor({ sesion }) {
           opciones={CATEGORIAS}
           error={form.error('categoria_licencia')}
         />
-        <Campo
+        <CampoTexto
           id="vencimiento_licencia"
           etiqueta="Vencimiento de la licencia"
           type="date"
@@ -225,7 +226,7 @@ function FormConductor({ sesion }) {
           form={form}
           error={form.error('vencimiento_licencia')}
         />
-        <Campo
+        <CampoTexto
           id="anios_experiencia"
           etiqueta="Años de experiencia"
           type="number"

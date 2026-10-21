@@ -1,3 +1,5 @@
+import EstadoVacio from '@/components/ui/EstadoVacio.jsx';
+
 /**
  * Tabla reutilizable. En pantallas pequeñas cada fila se muestra como tarjeta
  * usando el atributo data-label (diseño responsivo).
@@ -10,7 +12,7 @@ export default function TablaDatos({
   claveFila,
   vacio = 'No hay registros.',
 }) {
-  if (!filas.length) return <p className="estado-vacio">{vacio}</p>;
+  if (!filas.length) return <EstadoVacio>{vacio}</EstadoVacio>;
   return (
     <div className="tabla-envoltura">
       <table className="tabla">

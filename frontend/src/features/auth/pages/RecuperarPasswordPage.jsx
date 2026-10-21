@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useFormulario } from '@/hooks/useFormulario.js';
-import { Campo } from '@/components/ui/Campos.jsx';
+import CampoTexto from '@/components/ui/CampoTexto.jsx';
 import Alerta from '@/components/ui/Alerta.jsx';
 import { correo, primeraFalla, requerido } from '@/utils/validaciones.js';
 
@@ -24,7 +24,7 @@ export default function RecuperarPasswordPage() {
           </Alerta>
         ) : (
           <form onSubmit={form.handleSubmit((v) => setEnviado(v.correo))} noValidate>
-            <Campo
+            <CampoTexto
               id="correo"
               etiqueta="Correo electrónico"
               type="email"

@@ -6,6 +6,8 @@ import TablaDatos from '@/components/ui/TablaDatos.jsx';
 import Insignia from '@/components/ui/Insignia.jsx';
 import Alerta from '@/components/ui/Alerta.jsx';
 import EncabezadoPagina from '@/components/ui/EncabezadoPagina.jsx';
+import Pestanas from '@/components/ui/Pestanas.jsx';
+import DialogoConfirmacion from '@/components/ui/DialogoConfirmacion.jsx';
 import { fechaHora, pesos } from '@/utils/formato.js';
 
 /** RF03.4 y RF03.5 – Solicitudes, reservas e historial del pasajero (vista v_historial_pasajero). */
@@ -15,6 +17,7 @@ export default function MisViajesPage() {
   const location = useLocation();
   const [mensaje, setMensaje] = useState(location.state?.mensaje || '');
   const [pestana, setPestana] = useState('solicitudes');
+  const [reservaPorCancelar, setReservaPorCancelar] = useState(null);
   const idPas = sesion.pasajero.id_pasajero;
 
   const filas = db.solicitud
@@ -45,15 +48,12 @@ export default function MisViajesPage() {
     render: (f) => fechaHora(f.viaje.fecha_hora_salida),
   };
 
-  const cancelar = (f) => {
-    if (
-      window.confirm(
-        `¿Cancelar la reserva ${f.reserva.codigo}? El cupo quedará libre para otra persona.`
-      )
-    ) {
-      cancelarReserva(f.reserva.id_reserva);
-      setMensaje(`La reserva ${f.reserva.codigo} fue cancelada.`);
-    }
+  const cancelar = (f) => setReservaPorCancelar(f.reserva);
+
+  const confirmarCancelacion = () => {
+    cancelarReserva(reservaPorCancelar.id_reserva);
+    setMensaje(`La reserva ${reservaPorCancelar.codigo} fue cancelada.`);
+    setReservaPorCancelar(null);
   };
 
   const tabs = [
@@ -76,21 +76,7 @@ export default function MisViajesPage() {
           {mensaje}
         </Alerta>
       )}
-      <div className="pestanas" role="tablist" aria-label="Mis viajes">
-        {tabs.map((t) => (
-          <button
-            key={t.id}
-            role="tab"
-            id={`tab-${t.id}`}
-            aria-selected={pestana === t.id}
-            aria-controls={`panel-${t.id}`}
-            className={`pestana ${pestana === t.id ? 'pestana--activa' : ''}`}
-            onClick={() => setPestana(t.id)}
-          >
-            {t.texto}
-          </button>
-        ))}
-      </div>
+      <Pestanas etiqueta="Mis viajes" pestanas={tabs} activa={pestana} onCambiar={setPestana} />
       <div role="tabpanel" id={`panel-${pestana}`} aria-labelledby={`tab-${pestana}`}>
         {pestana === 'solicitudes' ? (
           <TablaDatos
@@ -158,6 +144,17 @@ export default function MisViajesPage() {
           />
         )}
       </div>
+      <DialogoConfirmacion
+        abierto={!!reservaPorCancelar}
+        titulo="Cancelar reserva"
+        textoConfirmar="Sí, cancelar"
+        peligro
+        onConfirmar={confirmarCancelacion}
+        onCancelar={() => setReservaPorCancelar(null)}
+      >
+        ¿Cancelar la reserva <strong>{reservaPorCancelar?.codigo}</strong>? El cupo quedará libre
+        para otra persona.
+      </DialogoConfirmacion>
     </section>
   );
 }

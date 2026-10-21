@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useData } from '@/context/DataContext.jsx';
 import { useFormulario } from '@/hooks/useFormulario.js';
-import { Selector, Campo } from '@/components/ui/Campos.jsx';
+import CampoSelector from '@/components/ui/CampoSelector.jsx';
+import CampoTexto from '@/components/ui/CampoTexto.jsx';
 import TarjetaViaje from '@/features/solicitudes/components/TarjetaViaje.jsx';
 import {
   IconoBuscar,
@@ -52,14 +53,14 @@ export default function InicioPage() {
             aria-label="Buscar viajes"
           >
             <h2 className="buscador__titulo">¿A dónde va?</h2>
-            <Selector
+            <CampoSelector
               id="origen"
               etiqueta="Origen"
               form={form}
               opciones={municipios}
               vacio="Cualquier municipio"
             />
-            <Selector
+            <CampoSelector
               id="destino"
               etiqueta="Destino"
               form={form}
@@ -67,7 +68,7 @@ export default function InicioPage() {
               vacio="Cualquier municipio"
               error={form.error('destino')}
             />
-            <Campo id="fecha" etiqueta="Fecha del viaje" type="date" form={form} />
+            <CampoTexto id="fecha" etiqueta="Fecha del viaje" type="date" form={form} />
             <button type="submit" className="boton boton--primario boton--bloque">
               <IconoBuscar /> Buscar viajes
             </button>

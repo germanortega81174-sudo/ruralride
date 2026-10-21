@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext.jsx';
 import { useData } from '@/context/DataContext.jsx';
 import { useFormulario } from '@/hooks/useFormulario.js';
-import { AreaTexto, Selector } from '@/components/ui/Campos.jsx';
+import CampoArea from '@/components/ui/CampoArea.jsx';
+import CampoSelector from '@/components/ui/CampoSelector.jsx';
 import TablaDatos from '@/components/ui/TablaDatos.jsx';
 import Insignia from '@/components/ui/Insignia.jsx';
 import Alerta from '@/components/ui/Alerta.jsx';
@@ -44,7 +45,7 @@ function FormResolver({ fila, onResuelto, onCancelar }) {
         {fecha(fila.conductor.vencimiento_licencia)} · {fila.conductor.anios_experiencia} años de
         experiencia · {fila.vehiculos} vehículo(s)
       </p>
-      <Selector
+      <CampoSelector
         id="estado"
         etiqueta="Decisión"
         requerido
@@ -55,7 +56,7 @@ function FormResolver({ fila, onResuelto, onCancelar }) {
           { valor: 'RECHAZADA', texto: 'Rechazar' },
         ]}
       />
-      <AreaTexto
+      <CampoArea
         id="observaciones"
         etiqueta="Observaciones"
         requerido={form.valores.estado === 'RECHAZADA'}

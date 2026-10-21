@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext.jsx';
 import { useData } from '@/context/DataContext.jsx';
 import { useFormulario } from '@/hooks/useFormulario.js';
-import { Campo, Selector } from '@/components/ui/Campos.jsx';
+import CampoTexto from '@/components/ui/CampoTexto.jsx';
+import CampoSelector from '@/components/ui/CampoSelector.jsx';
 import Alerta from '@/components/ui/Alerta.jsx';
 import EncabezadoPagina from '@/components/ui/EncabezadoPagina.jsx';
 import SubmenuConductor from '@/features/viajes/components/SubmenuConductor.jsx';
@@ -101,7 +102,7 @@ export default function PublicarViajePage() {
           className="grupo grupo--plano"
         >
           <legend className="sr-only">Datos del viaje</legend>
-          <Selector
+          <CampoSelector
             id="id_ruta"
             etiqueta="Ruta"
             requerido
@@ -112,7 +113,7 @@ export default function PublicarViajePage() {
               texto: `${municipio(r.id_municipio_origen).nombre} → ${municipio(r.id_municipio_destino).nombre} (${r.punto_encuentro})`,
             }))}
           />
-          <Selector
+          <CampoSelector
             id="id_vehiculo"
             etiqueta="Vehículo"
             requerido
@@ -124,7 +125,7 @@ export default function PublicarViajePage() {
             }))}
           />
           <div className="rejilla-2">
-            <Campo
+            <CampoTexto
               id="fecha_hora_salida"
               etiqueta="Fecha y hora de salida"
               type="datetime-local"
@@ -132,7 +133,7 @@ export default function PublicarViajePage() {
               form={form}
               error={form.error('fecha_hora_salida')}
             />
-            <Campo
+            <CampoTexto
               id="costo_por_cupo"
               etiqueta="Aporte por cupo (COP)"
               type="number"
@@ -144,7 +145,7 @@ export default function PublicarViajePage() {
               error={form.error('costo_por_cupo')}
               ayuda="Aporte solidario para combustible."
             />
-            <Campo
+            <CampoTexto
               id="cupos_ofrecidos"
               etiqueta="Cupos ofrecidos"
               type="number"

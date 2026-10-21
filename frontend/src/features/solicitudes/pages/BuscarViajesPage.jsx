@@ -2,9 +2,11 @@ import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useData } from '@/context/DataContext.jsx';
 import { useFormulario } from '@/hooks/useFormulario.js';
-import { Campo, Selector } from '@/components/ui/Campos.jsx';
+import CampoTexto from '@/components/ui/CampoTexto.jsx';
+import CampoSelector from '@/components/ui/CampoSelector.jsx';
 import TarjetaViaje from '@/features/solicitudes/components/TarjetaViaje.jsx';
 import EncabezadoPagina from '@/components/ui/EncabezadoPagina.jsx';
+import EstadoVacio from '@/components/ui/EstadoVacio.jsx';
 import { rango } from '@/utils/validaciones.js';
 
 /** RF03.1 – Buscar rutas y viajes. Los filtros se guardan en la URL para poder compartir la búsqueda. */
@@ -37,6 +39,11 @@ export default function BuscarViajesPage() {
     [db, params]
   );
 
+  const limpiar = () => {
+    form.reset();
+    setParams({});
+  };
+
   const aplicar = (v) => setParams(Object.fromEntries(Object.entries(v).filter(([, x]) => x)));
 
   return (
@@ -53,8 +60,14 @@ export default function BuscarViajesPage() {
           aria-label="Filtros de búsqueda"
         >
           <h2 className="h3">Filtros</h2>
-          <Selector id="origen" etiqueta="Origen" form={form} opciones={municipios} vacio="Todos" />
-          <Selector
+          <CampoSelector
+            id="origen"
+            etiqueta="Origen"
+            form={form}
+            opciones={municipios}
+            vacio="Todos"
+          />
+          <CampoSelector
             id="destino"
             etiqueta="Destino"
             form={form}
@@ -62,8 +75,8 @@ export default function BuscarViajesPage() {
             vacio="Todos"
             error={form.error('destino')}
           />
-          <Campo id="fecha" etiqueta="Fecha" type="date" form={form} />
-          <Campo
+          <CampoTexto id="fecha" etiqueta="Fecha" type="date" form={form} />
+          <CampoTexto
             id="cupos"
             etiqueta="Cupos que necesita"
             type="number"
@@ -76,14 +89,7 @@ export default function BuscarViajesPage() {
             <button type="submit" className="boton boton--primario">
               Aplicar
             </button>
-            <button
-              type="button"
-              className="boton boton--fantasma"
-              onClick={() => {
-                form.reset();
-                setParams({});
-              }}
-            >
+            <button type="button" className="boton boton--fantasma" onClick={limpiar}>
               Limpiar
             </button>
           </div>
@@ -99,9 +105,19 @@ export default function BuscarViajesPage() {
               ))}
             </div>
           ) : (
-            <p className="estado-vacio">
+            <EstadoVacio
+              accion={
+                <button
+                  type="button"
+                  className="boton boton--secundario boton--chico"
+                  onClick={limpiar}
+                >
+                  Quitar filtros
+                </button>
+              }
+            >
               No hay viajes con esos filtros. Pruebe con otra fecha o municipio.
-            </p>
+            </EstadoVacio>
           )}
         </div>
       </div>
