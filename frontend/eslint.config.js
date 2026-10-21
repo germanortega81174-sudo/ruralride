@@ -25,5 +25,10 @@ export default [
       'no-var': 'error',
     },
   },
+  {
+    // Archivos de configuración que corren en Node.js
+    files: ['*.config.js'],
+    languageOptions: { globals: { ...globals.node } },
+  },
   prettier,
 ];
