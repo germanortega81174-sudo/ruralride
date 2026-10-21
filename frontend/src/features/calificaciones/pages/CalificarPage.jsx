@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useData } from '@/context/DataContext.jsx';
 import { useFormulario } from '@/hooks/useFormulario.js';
-import { AreaTexto } from '@/components/ui/Campos.jsx';
+import CampoArea from '@/components/ui/CampoArea.jsx';
 import { SelectorEstrellas } from '@/components/ui/Estrellas.jsx';
 import Alerta from '@/components/ui/Alerta.jsx';
 import { fechaHora } from '@/utils/formato.js';
@@ -58,7 +58,7 @@ export default function CalificarPage() {
             onChange={(n) => form.setValor('puntuacion', n)}
             error={form.error('puntuacion')}
           />
-          <AreaTexto
+          <CampoArea
             id="comentario"
             etiqueta="Comentario"
             maxLength={300}

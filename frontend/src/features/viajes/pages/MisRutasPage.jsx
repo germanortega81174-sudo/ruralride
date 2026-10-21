@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext.jsx';
 import { useData } from '@/context/DataContext.jsx';
 import { useFormulario } from '@/hooks/useFormulario.js';
-import { Campo, Selector } from '@/components/ui/Campos.jsx';
+import CampoTexto from '@/components/ui/CampoTexto.jsx';
+import CampoSelector from '@/components/ui/CampoSelector.jsx';
 import TablaDatos from '@/components/ui/TablaDatos.jsx';
 import Insignia from '@/components/ui/Insignia.jsx';
 import Alerta from '@/components/ui/Alerta.jsx';
@@ -99,7 +100,7 @@ export default function MisRutasPage() {
           <h2 id="titulo-ruta" className="h3">
             Registrar ruta
           </h2>
-          <Selector
+          <CampoSelector
             id="id_municipio_origen"
             etiqueta="Municipio de origen"
             requerido
@@ -107,7 +108,7 @@ export default function MisRutasPage() {
             opciones={municipios}
             error={form.error('id_municipio_origen')}
           />
-          <Selector
+          <CampoSelector
             id="id_municipio_destino"
             etiqueta="Municipio de destino"
             requerido
@@ -115,7 +116,7 @@ export default function MisRutasPage() {
             opciones={municipios}
             error={form.error('id_municipio_destino')}
           />
-          <Campo
+          <CampoTexto
             id="punto_encuentro"
             etiqueta="Punto de encuentro"
             requerido
@@ -125,7 +126,7 @@ export default function MisRutasPage() {
             error={form.error('punto_encuentro')}
           />
           <div className="rejilla-2">
-            <Campo
+            <CampoTexto
               id="distancia_km"
               etiqueta="Distancia (km)"
               type="number"
@@ -135,7 +136,7 @@ export default function MisRutasPage() {
               form={form}
               error={form.error('distancia_km')}
             />
-            <Campo
+            <CampoTexto
               id="tiempo_estimado_min"
               etiqueta="Duración (minutos)"
               type="number"

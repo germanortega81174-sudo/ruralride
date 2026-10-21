@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth, PASSWORD_DEMO } from '@/context/AuthContext.jsx';
 import { useFormulario } from '@/hooks/useFormulario.js';
-import { Campo } from '@/components/ui/Campos.jsx';
+import CampoTexto from '@/components/ui/CampoTexto.jsx';
 import Alerta from '@/components/ui/Alerta.jsx';
 import { correo, primeraFalla, requerido } from '@/utils/validaciones.js';
 
@@ -48,7 +48,7 @@ export default function IngresarPage() {
           </Alerta>
         )}
         <form onSubmit={form.handleSubmit(enviar)} noValidate>
-          <Campo
+          <CampoTexto
             id="correo"
             etiqueta="Correo electrónico"
             type="email"
@@ -58,7 +58,7 @@ export default function IngresarPage() {
             error={form.error('correo')}
             maxLength={120}
           />
-          <Campo
+          <CampoTexto
             id="password"
             etiqueta="Contraseña"
             type="password"

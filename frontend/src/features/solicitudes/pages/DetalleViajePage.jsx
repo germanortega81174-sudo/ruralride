@@ -3,8 +3,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useData } from '@/context/DataContext.jsx';
 import { useAuth } from '@/context/AuthContext.jsx';
 import { useFormulario } from '@/hooks/useFormulario.js';
-import { Selector } from '@/components/ui/Campos.jsx';
+import CampoSelector from '@/components/ui/CampoSelector.jsx';
 import Alerta from '@/components/ui/Alerta.jsx';
+import Migas from '@/components/ui/Migas.jsx';
 import Insignia from '@/components/ui/Insignia.jsx';
 import { Estrellas } from '@/components/ui/Estrellas.jsx';
 import { duracion, fechaHora, pesos } from '@/utils/formato.js';
@@ -58,10 +59,9 @@ export default function DetalleViajePage() {
 
   return (
     <section className="contenedor seccion">
-      <nav aria-label="Ruta de navegación" className="migas">
-        <Link to="/viajes">Buscar viajes</Link> <span aria-hidden="true">/</span>{' '}
-        <span aria-current="page">Viaje {v.id_viaje}</span>
-      </nav>
+      <Migas
+        elementos={[{ texto: 'Buscar viajes', to: '/viajes' }, { texto: `Viaje ${v.id_viaje}` }]}
+      />
       <div className="rejilla-principal">
         <article className="panel">
           <p className="texto-suave">
@@ -153,7 +153,7 @@ export default function DetalleViajePage() {
             <Alerta tipo="aviso">Este viaje ya no tiene cupos disponibles.</Alerta>
           ) : (
             <form onSubmit={form.handleSubmit(enviar)} noValidate>
-              <Selector
+              <CampoSelector
                 id="cupos"
                 etiqueta="Cupos"
                 requerido

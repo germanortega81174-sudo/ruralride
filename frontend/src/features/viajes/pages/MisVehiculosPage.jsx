@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext.jsx';
 import { useData } from '@/context/DataContext.jsx';
 import { useFormulario } from '@/hooks/useFormulario.js';
-import { Campo, Selector } from '@/components/ui/Campos.jsx';
+import CampoTexto from '@/components/ui/CampoTexto.jsx';
+import CampoSelector from '@/components/ui/CampoSelector.jsx';
 import TablaDatos from '@/components/ui/TablaDatos.jsx';
 import Insignia from '@/components/ui/Insignia.jsx';
 import Alerta from '@/components/ui/Alerta.jsx';
@@ -117,7 +118,7 @@ export default function MisVehiculosPage() {
           <h2 id="titulo-veh" className="h3">
             Registrar vehículo
           </h2>
-          <Campo
+          <CampoTexto
             id="placa"
             etiqueta="Placa"
             requerido
@@ -126,7 +127,7 @@ export default function MisVehiculosPage() {
             form={{ ...form, handleChange: cambiarPlaca }}
             error={form.error('placa')}
           />
-          <Selector
+          <CampoSelector
             id="tipo"
             etiqueta="Tipo"
             requerido
@@ -135,7 +136,7 @@ export default function MisVehiculosPage() {
             error={form.error('tipo')}
           />
           <div className="rejilla-2">
-            <Campo
+            <CampoTexto
               id="marca"
               etiqueta="Marca"
               requerido
@@ -143,7 +144,7 @@ export default function MisVehiculosPage() {
               form={form}
               error={form.error('marca')}
             />
-            <Campo
+            <CampoTexto
               id="linea"
               etiqueta="Línea"
               requerido
@@ -151,7 +152,7 @@ export default function MisVehiculosPage() {
               form={form}
               error={form.error('linea')}
             />
-            <Campo
+            <CampoTexto
               id="anio_modelo"
               etiqueta="Año modelo"
               type="number"
@@ -161,7 +162,7 @@ export default function MisVehiculosPage() {
               form={form}
               error={form.error('anio_modelo')}
             />
-            <Campo
+            <CampoTexto
               id="color"
               etiqueta="Color"
               requerido
@@ -170,7 +171,7 @@ export default function MisVehiculosPage() {
               error={form.error('color')}
             />
           </div>
-          <Campo
+          <CampoTexto
             id="capacidad"
             etiqueta="Puestos para pasajeros"
             type="number"
