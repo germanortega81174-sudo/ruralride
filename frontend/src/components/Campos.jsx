@@ -5,16 +5,32 @@ function Envoltura({ id, etiqueta, requerido, ayuda, error, children }) {
   return (
     <div className={`campo ${error ? 'campo--error' : ''}`}>
       <label htmlFor={id} className="campo__etiqueta">
-        {etiqueta} {requerido && <span className="campo__req" aria-hidden="true">*</span>}
+        {etiqueta}{' '}
+        {requerido && (
+          <span className="campo__req" aria-hidden="true">
+            *
+          </span>
+        )}
       </label>
       {children}
-      {ayuda && !error && <p id={`${id}-ayuda`} className="campo__ayuda">{ayuda}</p>}
-      {error && <p id={`${id}-error`} className="campo__error" role="alert">{error}</p>}
+      {ayuda && !error && (
+        <p id={`${id}-ayuda`} className="campo__ayuda">
+          {ayuda}
+        </p>
+      )}
+      {error && (
+        <p id={`${id}-error`} className="campo__error" role="alert">
+          {error}
+        </p>
+      )}
     </div>
-  )
+  );
 }
 
-const describe = (id, ayuda, error) => [error ? `${id}-error` : null, ayuda && !error ? `${id}-ayuda` : null].filter(Boolean).join(' ') || undefined
+const describe = (id, ayuda, error) =>
+  [error ? `${id}-error` : null, ayuda && !error ? `${id}-ayuda` : null]
+    .filter(Boolean)
+    .join(' ') || undefined;
 
 export function Campo({ id, etiqueta, requerido, ayuda, error, form, ...props }) {
   return (
@@ -32,10 +48,20 @@ export function Campo({ id, etiqueta, requerido, ayuda, error, form, ...props })
         {...props}
       />
     </Envoltura>
-  )
+  );
 }
 
-export function Selector({ id, etiqueta, requerido, ayuda, error, form, opciones, vacio = 'Seleccione…', ...props }) {
+export function Selector({
+  id,
+  etiqueta,
+  requerido,
+  ayuda,
+  error,
+  form,
+  opciones,
+  vacio = 'Seleccione…',
+  ...props
+}) {
   return (
     <Envoltura id={id} etiqueta={etiqueta} requerido={requerido} ayuda={ayuda} error={error}>
       <select
@@ -52,15 +78,17 @@ export function Selector({ id, etiqueta, requerido, ayuda, error, form, opciones
       >
         <option value="">{vacio}</option>
         {opciones.map((o) => (
-          <option key={o.valor} value={o.valor}>{o.texto}</option>
+          <option key={o.valor} value={o.valor}>
+            {o.texto}
+          </option>
         ))}
       </select>
     </Envoltura>
-  )
+  );
 }
 
 export function AreaTexto({ id, etiqueta, requerido, ayuda, error, form, maxLength, ...props }) {
-  const n = String(form.valores[id] ?? '').length
+  const n = String(form.valores[id] ?? '').length;
   return (
     <Envoltura id={id} etiqueta={etiqueta} requerido={requerido} ayuda={ayuda} error={error}>
       <textarea
@@ -77,7 +105,11 @@ export function AreaTexto({ id, etiqueta, requerido, ayuda, error, form, maxLeng
         aria-describedby={describe(id, ayuda, error)}
         {...props}
       />
-      {maxLength && <span className="campo__contador" aria-live="polite">{n}/{maxLength}</span>}
+      {maxLength && (
+        <span className="campo__contador" aria-live="polite">
+          {n}/{maxLength}
+        </span>
+      )}
     </Envoltura>
-  )
+  );
 }

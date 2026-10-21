@@ -8,24 +8,29 @@ Primera versión funcional del frontend de **RuralRide – Plataforma de Transpo
 > simulan en `src/context/DataContext.jsx`. Los cambios se pierden al recargar la página.
 
 ## Requisitos
+
 - Node.js 20.19 o superior (LTS recomendado)
 
 ## Ejecutar
+
 ```bash
 npm install
 npm run dev        # abre http://localhost:5173
 ```
+
 Compilar para producción: `npm run build` y luego `npm run preview`.
 
 ## Cuentas de prueba (contraseña: `RuralRide2026*`)
-| Rol | Correo |
-|---|---|
-| Pasajero | carlos.perez@gmail.com |
-| Conductor | juan.lopez@gmail.com |
-| Conductora y pasajera | rosa.gutierrez@gmail.com |
-| Administradora | luzmarina.pabon@ruralride.co |
+
+| Rol                   | Correo                       | Documento  | Qué se puede probar                        |
+| --------------------- | ---------------------------- | ---------- | ------------------------------------------ |
+| Pasajero              | carlos.perez@gmail.com       | 1117123654 | Buscar viajes, solicitar cupo, calificar   |
+| Conductor             | juan.lopez@gmail.com         | 1116784523 | Vehículos, rutas, publicar viajes, aprobar |
+| Conductora y pasajera | rosa.gutierrez@gmail.com     | 1116452390 | Los dos roles con la misma cuenta          |
+| Administradora        | luzmarina.pabon@ruralride.co | 68291045   | Validación comunitaria de conductores      |
 
 ## Estructura
+
 ```
 src/
   components/   Componentes reutilizables (Encabezado, PiePagina, Campos, TablaDatos, TarjetaViaje, Alerta, Insignia, Estrellas…)
@@ -40,12 +45,13 @@ src/
 ```
 
 ## Rutas
-| Ruta | Vista | Requerimiento |
-|---|---|---|
-| `/` | Inicio y buscador | RF03.1 |
-| `/ingresar`, `/registro`, `/recuperar-contrasena` | Autenticación | RF01.1–RF01.3 |
-| `/perfil` | Perfil y solicitud para ser conductor | RF01.4 |
-| `/viajes`, `/viajes/:id` | Buscar viajes y solicitar cupo | RF03.1–RF03.3 |
-| `/mis-viajes`, `/mis-viajes/calificar/:id` | Solicitudes, reservas, historial y calificación | RF03.4, RF03.5, SP.1 |
-| `/conductor`, `/conductor/vehiculos`, `/conductor/rutas`, `/conductor/publicar` | Panel del conductor | RF02, RF03.4 |
-| `/admin/validaciones` | Validación comunitaria | RF04 |
+
+| Ruta                                                                            | Vista                                           | Requerimiento        |
+| ------------------------------------------------------------------------------- | ----------------------------------------------- | -------------------- |
+| `/`                                                                             | Inicio y buscador                               | RF03.1               |
+| `/ingresar`, `/registro`, `/recuperar-contrasena`                               | Autenticación                                   | RF01.1–RF01.3        |
+| `/perfil`                                                                       | Perfil y solicitud para ser conductor           | RF01.4               |
+| `/viajes`, `/viajes/:id`                                                        | Buscar viajes y solicitar cupo                  | RF03.1–RF03.3        |
+| `/mis-viajes`, `/mis-viajes/calificar/:id`                                      | Solicitudes, reservas, historial y calificación | RF03.4, RF03.5, SP.1 |
+| `/conductor`, `/conductor/vehiculos`, `/conductor/rutas`, `/conductor/publicar` | Panel del conductor                             | RF02, RF03.4         |
+| `/admin/validaciones`                                                           | Validación comunitaria                          | RF04                 |

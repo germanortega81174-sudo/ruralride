@@ -7,8 +7,10 @@ export default function Alerta({ tipo = 'info', titulo, children, onCerrar }) {
         <div>{children}</div>
       </div>
       {onCerrar && (
-        <button className="alerta__cerrar" onClick={onCerrar} aria-label="Cerrar mensaje">×</button>
+        <button className="alerta__cerrar" onClick={onCerrar} aria-label="Cerrar mensaje">
+          ×
+        </button>
       )}
     </div>
-  )
+  );
 }
