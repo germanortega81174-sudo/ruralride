@@ -1,19 +1,39 @@
 /* eslint-disable react-refresh/only-export-components */
 // Sesión simulada: en esta etapa no hay backend, por lo que el inicio de sesión
 // se valida contra los datos de prueba. Contraseña de todos los usuarios de prueba: RuralRide2026*
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useData } from '@/context/DataContext.jsx';
 
 export const PASSWORD_DEMO = 'RuralRide2026*';
 const AuthContext = createContext(null);
+const CLAVE_SESION = 'ruralride:sesion';
+
+// La sesión se guarda en sessionStorage: sobrevive a una recarga, pero se borra al cerrar la pestaña
+const leerSesionGuardada = () => {
+  try {
+    return Number(sessionStorage.getItem(CLAVE_SESION)) || null;
+  } catch {
+    return null;
+  }
+};
 
 export function AuthProvider({ children }) {
   const { db } = useData();
-  const [idUsuario, setIdUsuario] = useState(null);
+  const [idUsuario, setIdUsuario] = useState(leerSesionGuardada);
+
+  useEffect(() => {
+    try {
+      if (idUsuario) sessionStorage.setItem(CLAVE_SESION, String(idUsuario));
+      else sessionStorage.removeItem(CLAVE_SESION);
+    } catch {
+      // sin almacenamiento: la sesión dura mientras la página esté abierta
+    }
+  }, [idUsuario]);
 
   const sesion = useMemo(() => {
     if (!idUsuario) return null;
     const usuario = db.usuario.find((u) => u.id_usuario === idUsuario);
+    if (!usuario) return null;
     return {
       usuario,
       conductor: db.conductor.find((c) => c.id_usuario === idUsuario) || null,

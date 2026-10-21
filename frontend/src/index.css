@@ -1166,3 +1166,8 @@ textarea.campo__control {
 .dialogo__acciones {
   justify-content: flex-end;
 }
+.pie__restablecer {
+  color: inherit;
+  text-decoration: underline;
+  font-size: inherit;
+}

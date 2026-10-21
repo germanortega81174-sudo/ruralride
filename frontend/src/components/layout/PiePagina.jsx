@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import Logo from '@/components/layout/Logo.jsx';
+import DialogoConfirmacion from '@/components/ui/DialogoConfirmacion.jsx';
+import { useData } from '@/context/DataContext.jsx';
 
 export default function PiePagina() {
+  const { restablecerDatos } = useData();
+  const [confirmando, setConfirmando] = useState(false);
+
   return (
     <footer className="pie">
       <div className="contenedor pie__contenido">
@@ -22,7 +28,29 @@ export default function PiePagina() {
             </li>
           </ul>
         </nav>
-        <p className="pie__legal">Prototipo académico – SENA ADSO 3336056 · 2026</p>
+        <p className="pie__legal">
+          Prototipo académico – SENA ADSO 3336056 · 2026 ·{' '}
+          <button
+            type="button"
+            className="enlace-boton pie__restablecer"
+            onClick={() => setConfirmando(true)}
+          >
+            Restablecer datos de prueba
+          </button>
+        </p>
+        <DialogoConfirmacion
+          abierto={confirmando}
+          titulo="Restablecer datos de prueba"
+          textoConfirmar="Restablecer"
+          onConfirmar={() => {
+            restablecerDatos();
+            setConfirmando(false);
+          }}
+          onCancelar={() => setConfirmando(false)}
+        >
+          Se borran los cambios hechos en este navegador (registros, solicitudes, viajes) y se
+          vuelve a los datos de prueba originales.
+        </DialogoConfirmacion>
       </div>
     </footer>
   );
