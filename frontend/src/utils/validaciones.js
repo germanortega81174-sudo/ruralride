@@ -18,8 +18,9 @@ export const correo = (v) =>
     : '';
 
 // ck_usuario_telefono: celular colombiano de 10 dígitos que inicia en 3
+// Se aceptan también teléfonos fijos de 7 dígitos para las veredas sin señal de celular
 export const celular = (v) =>
-  v && !/^3\d{9}$/.test(v) ? 'El celular debe tener 10 dígitos y empezar por 3.' : '';
+  v && !/^\d{7,10}$/.test(v) ? 'El teléfono debe tener entre 7 y 10 dígitos.' : '';
 
 export const soloDigitos = (v, min, max, nombre = 'El número') =>
   v && !new RegExp(`^\\d{${min},${max}}$`).test(v)
