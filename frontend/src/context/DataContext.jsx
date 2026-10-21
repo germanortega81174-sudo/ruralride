@@ -1,10 +1,20 @@
 /* eslint-disable react-refresh/only-export-components */
-// Almacén de datos en memoria. Replica la estructura de la base de datos `ruralride`
-// (Evidencias 1 y 2) y sus reglas de negocio, porque en esta etapa el frontend todavía
+// Almacén de datos del prototipo. Replica la estructura de la base de datos `ruralride`
+// (Evidencias 1 y 2). Las reglas de negocio están en services/reglasNegocio.js, porque en esta etapa el frontend todavía
 // NO se conecta al backend. Más adelante cada función se reemplazará por una petición
 // a la API en Node.js.
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
-import datos from '../data/datosPrueba.json';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import {
+  calcularCuposDisponibles,
+  calcularReputacion,
+  obtenerUltimaValidacion,
+  validarCalificacion,
+  validarPublicacionViaje,
+  validarResolucionValidacion,
+  validarRespuestaSolicitud,
+  validarSolicitudCupo,
+} from '@/services/reglasNegocio.js';
+import { borrarDatosGuardados, cargarDatos, guardarDatos } from '@/services/almacenamiento.js';
 
 const DataContext = createContext(null);
 
@@ -12,30 +22,19 @@ const ahora = () => new Date().toISOString().slice(0, 19);
 const siguienteId = (lista, campo) => Math.max(0, ...lista.map((x) => x[campo])) + 1;
 
 export function DataProvider({ children }) {
-  const [db, setDb] = useState(datos);
+  // Estado compartido por toda la aplicación. Se carga del navegador y se guarda en cada cambio.
+  const [db, setDb] = useState(cargarDatos);
+  useEffect(() => guardarDatos(db), [db]);
+
+  /** Vuelve a los datos de prueba originales (útil para repetir una demostración). */
+  const restablecerDatos = useCallback(() => setDb(borrarDatosGuardados()), []);
 
   // ----------------------------- consultas -----------------------------
   const municipio = useCallback((id) => db.municipio.find((m) => m.id_municipio === id), [db]);
   const usuario = useCallback((id) => db.usuario.find((u) => u.id_usuario === id), [db]);
 
   /** Atributo derivado: cupos_ofrecidos − cupos de reservas vigentes (fn_cupos_disponibles). */
-  const cuposDisponibles = useCallback(
-    (idViaje) => {
-      const viaje = db.viaje.find((v) => v.id_viaje === idViaje);
-      if (!viaje) return 0;
-      const ocupados = db.solicitud
-        .filter((s) => s.id_viaje === idViaje)
-        .filter((s) =>
-          db.reserva.some(
-            (r) =>
-              r.id_solicitud === s.id_solicitud && ['CONFIRMADA', 'COMPLETADA'].includes(r.estado)
-          )
-        )
-        .reduce((acc, s) => acc + s.cupos_solicitados, 0);
-      return viaje.cupos_ofrecidos - ocupados;
-    },
-    [db]
-  );
+  const cuposDisponibles = useCallback((idViaje) => calcularCuposDisponibles(db, idViaje), [db]);
 
   /** Equivalente a la vista v_viajes_disponibles (JOIN de viaje, ruta, municipio, conductor, usuario y vehículo). */
   const detalleViaje = useCallback(
@@ -59,30 +58,11 @@ export function DataProvider({ children }) {
   );
 
   /** Calificación promedio del conductor (vista v_reputacion_conductor). */
-  const reputacion = useCallback(
-    (idConductor) => {
-      const rutas = db.ruta.filter((r) => r.id_conductor === idConductor).map((r) => r.id_ruta);
-      const viajes = db.viaje.filter((v) => rutas.includes(v.id_ruta)).map((v) => v.id_viaje);
-      const sols = db.solicitud
-        .filter((s) => viajes.includes(s.id_viaje))
-        .map((s) => s.id_solicitud);
-      const res = db.reserva.filter((r) => sols.includes(r.id_solicitud)).map((r) => r.id_reserva);
-      const cal = db.calificacion.filter((c) => res.includes(c.id_reserva));
-      const promedio = cal.length ? cal.reduce((a, c) => a + c.puntuacion, 0) / cal.length : 0;
-      return { total: cal.length, promedio: Math.round(promedio * 100) / 100 };
-    },
-    [db]
-  );
+  const reputacion = useCallback((idConductor) => calcularReputacion(db, idConductor), [db]);
 
   /** Última validación del conductor (vista v_estado_validacion_conductor). */
   const validacionVigente = useCallback(
-    (idConductor) =>
-      db.validacion
-        .filter((v) => v.id_conductor === idConductor)
-        .sort(
-          (a, b) =>
-            (a.fecha_solicitud < b.fecha_solicitud ? 1 : -1) || b.id_validacion - a.id_validacion
-        )[0],
+    (idConductor) => obtenerUltimaValidacion(db, idConductor),
     [db]
   );
 
@@ -200,24 +180,7 @@ export function DataProvider({ children }) {
   /** RN13, RN14 y RN15 (trigger tr_viaje_bi). */
   const publicarViaje = useCallback(
     (v) => {
-      const ruta = db.ruta.find((r) => r.id_ruta === v.id_ruta);
-      const vehiculo = db.vehiculo.find((x) => x.id_vehiculo === v.id_vehiculo);
-      if (ruta.id_conductor !== vehiculo.id_conductor)
-        throw new Error('RN13: El vehículo no pertenece al conductor de la ruta.');
-      if (v.cupos_ofrecidos > vehiculo.capacidad)
-        throw new Error(
-          `RN14: Los cupos ofrecidos superan la capacidad del vehículo (${vehiculo.capacidad}).`
-        );
-      if (validacionVigente(ruta.id_conductor)?.estado !== 'APROBADA')
-        throw new Error('RN15: Su validación comunitaria aún no está APROBADA.');
-      if (
-        db.viaje.some(
-          (x) => x.id_vehiculo === v.id_vehiculo && x.fecha_hora_salida === v.fecha_hora_salida
-        )
-      )
-        throw new Error(
-          'Ese vehículo ya tiene un viaje a esa misma hora (uq_viaje_vehiculo_salida).'
-        );
+      validarPublicacionViaje(db, v);
       setDb((prev) => ({
         ...prev,
         viaje: [
@@ -231,22 +194,13 @@ export function DataProvider({ children }) {
         ],
       }));
     },
-    [db, validacionVigente]
+    [db]
   );
 
   /** RN05, RN17 y RN18 (trigger tr_solicitud_bi y UNIQUE (id_pasajero, id_viaje)). */
   const solicitarCupo = useCallback(
     (idPasajero, idViaje, cupos) => {
-      const viaje = detalleViaje(db.viaje.find((v) => v.id_viaje === idViaje));
-      const pasajero = db.pasajero.find((p) => p.id_pasajero === idPasajero);
-      if (viaje.estado !== 'PROGRAMADO')
-        throw new Error('RN17: Solo se pueden solicitar cupos en viajes programados.');
-      if (viaje.conductor.id_usuario === pasajero.id_usuario)
-        throw new Error('RN18: No puede solicitar cupo en su propio viaje.');
-      if (db.solicitud.some((s) => s.id_pasajero === idPasajero && s.id_viaje === idViaje))
-        throw new Error('RN05: Ya tiene una solicitud para este viaje.');
-      if (cupos > viaje.cupos_disponibles)
-        throw new Error(`Solo hay ${viaje.cupos_disponibles} cupo(s) disponible(s).`);
+      validarSolicitudCupo(db, idPasajero, idViaje, cupos);
       setDb((prev) => ({
         ...prev,
         solicitud: [
@@ -264,17 +218,13 @@ export function DataProvider({ children }) {
         ],
       }));
     },
-    [db, detalleViaje]
+    [db]
   );
 
   /** RN19, RN20 y RN07 (triggers tr_solicitud_bu y tr_solicitud_au). */
   const responderSolicitud = useCallback(
     (idSolicitud, estado, motivo = null) => {
-      const s = db.solicitud.find((x) => x.id_solicitud === idSolicitud);
-      if (s.estado !== 'PENDIENTE')
-        throw new Error('RN19: Solo se responden solicitudes pendientes.');
-      if (estado === 'APROBADA' && cuposDisponibles(s.id_viaje) < s.cupos_solicitados)
-        throw new Error('RN20: No hay cupos disponibles para aprobar la solicitud.');
+      validarRespuestaSolicitud(db, idSolicitud, estado);
       setDb((prev) => {
         const solicitud = prev.solicitud.map((x) =>
           x.id_solicitud === idSolicitud
@@ -297,7 +247,7 @@ export function DataProvider({ children }) {
         return { ...prev, solicitud, reserva };
       });
     },
-    [db, cuposDisponibles]
+    [db]
   );
 
   const cancelarReserva = useCallback((idReserva) => {
@@ -312,10 +262,7 @@ export function DataProvider({ children }) {
   /** RN22 (trigger tr_calificacion_bi) y UNIQUE (id_reserva). */
   const calificar = useCallback(
     (idReserva, puntuacion, comentario) => {
-      const r = db.reserva.find((x) => x.id_reserva === idReserva);
-      if (r.estado !== 'COMPLETADA') throw new Error('RN22: Solo se califican viajes finalizados.');
-      if (db.calificacion.some((c) => c.id_reserva === idReserva))
-        throw new Error('Este viaje ya fue calificado.');
+      validarCalificacion(db, idReserva, puntuacion);
       setDb((prev) => ({
         ...prev,
         calificacion: [
@@ -335,8 +282,7 @@ export function DataProvider({ children }) {
 
   /** RF04: resolver una validación (CHECK ck_validacion_resuelta y ck_validacion_rechazo). */
   const resolverValidacion = useCallback((idValidacion, idAdministrador, estado, observaciones) => {
-    if (estado === 'RECHAZADA' && !observaciones)
-      throw new Error('Para rechazar debe registrar observaciones.');
+    validarResolucionValidacion(estado, observaciones);
     setDb((prev) => ({
       ...prev,
       validacion: prev.validacion.map((v) =>
@@ -374,6 +320,7 @@ export function DataProvider({ children }) {
       cancelarReserva,
       calificar,
       resolverValidacion,
+      restablecerDatos,
     }),
     [
       db,
@@ -395,6 +342,7 @@ export function DataProvider({ children }) {
       cancelarReserva,
       calificar,
       resolverValidacion,
+      restablecerDatos,
     ]
   );
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

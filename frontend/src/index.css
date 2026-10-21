@@ -1128,3 +1128,46 @@ textarea.campo__control {
     scroll-behavior: auto !important;
   }
 }
+
+/* ----------------------- Componentes agregados (Evidencia 6) ----------------------- */
+.migas__lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.migas__item + .migas__item::before {
+  content: '/';
+  margin-right: 0.35rem;
+  color: var(--suave);
+}
+.estado-vacio p {
+  margin: 0 0 0.75rem;
+}
+.estado-vacio p:last-child {
+  margin-bottom: 0;
+}
+.dialogo {
+  border: none;
+  border-radius: var(--radio);
+  padding: 1.5rem;
+  max-width: 28rem;
+  width: calc(100% - 2rem);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+.dialogo::backdrop {
+  background: rgba(20, 30, 20, 0.55);
+}
+.dialogo__cuerpo {
+  margin: 0.75rem 0 1.25rem;
+}
+.dialogo__acciones {
+  justify-content: flex-end;
+}
+.pie__restablecer {
+  color: inherit;
+  text-decoration: underline;
+  font-size: inherit;
+}
