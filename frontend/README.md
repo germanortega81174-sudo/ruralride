@@ -22,12 +22,12 @@ Compilar para producción: `npm run build` y luego `npm run preview`.
 
 ## Cuentas de prueba (contraseña: `RuralRide2026*`)
 
-| Rol                   | Correo                       |
-| --------------------- | ---------------------------- |
-| Pasajero              | carlos.perez@gmail.com       |
-| Conductor             | juan.lopez@gmail.com         |
-| Conductora y pasajera | rosa.gutierrez@gmail.com     |
-| Administradora        | luzmarina.pabon@ruralride.co |
+| Rol                   | Correo                       | Documento   |
+| --------------------- | ---------------------------- | ----------- |
+| Pasajero              | carlos.perez@gmail.com       | 1117123654  |
+| Conductor             | juan.lopez@gmail.com         | 1116784523  |
+| Conductora y pasajera | rosa.gutierrez@gmail.com     | 1116452390  |
+| Administradora        | luzmarina.pabon@ruralride.co | 68291045    |
 
 ## Estructura
 
