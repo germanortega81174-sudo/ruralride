@@ -7,5 +7,5 @@ export default function EncabezadoPagina({ titulo, subtitulo, children }) {
       </div>
       {children && <div className="encabezado-pagina__acciones">{children}</div>}
     </div>
-  )
+  );
 }
