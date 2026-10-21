@@ -77,7 +77,7 @@ describe('Pestanas', () => {
 describe('Migas y TablaDatos', () => {
   it('Migas marca la página actual', () => {
     render(
-      <MemoryRouter>
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Migas elementos={[{ texto: 'Buscar viajes', to: '/viajes' }, { texto: 'Viaje 5' }]} />
       </MemoryRouter>
     );
