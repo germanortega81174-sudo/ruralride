@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useData } from '../context/DataContext.jsx';
-import { useAuth } from '../context/AuthContext.jsx';
-import { useFormulario } from '../hooks/useFormulario.js';
-import { Campo, Selector } from '../components/Campos.jsx';
-import Alerta from '../components/Alerta.jsx';
-import * as val from '../utils/validaciones.js';
+import { useData } from '@/context/DataContext.jsx';
+import { useAuth } from '@/context/AuthContext.jsx';
+import { useFormulario } from '@/hooks/useFormulario.js';
+import { Campo, Selector } from '@/components/ui/Campos.jsx';
+import Alerta from '@/components/ui/Alerta.jsx';
+import * as val from '@/utils/validaciones.js';
 
 const TIPOS = [
   { valor: 'CC', texto: 'Cédula de ciudadanía' },
@@ -46,7 +46,7 @@ const validar = (v) => ({
   acepta: v.acepta ? '' : 'Debe aceptar el tratamiento de datos personales.',
 });
 
-export default function Registro() {
+export default function RegistroPage() {
   const { db, registrarUsuario } = useData();
   const { iniciarSesionCon } = useAuth();
   const navigate = useNavigate();

@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { useAuth } from '../context/AuthContext.jsx';
-import { useData } from '../context/DataContext.jsx';
-import { useFormulario } from '../hooks/useFormulario.js';
-import { Campo, Selector } from '../components/Campos.jsx';
-import TablaDatos from '../components/TablaDatos.jsx';
-import Insignia from '../components/Insignia.jsx';
-import Alerta from '../components/Alerta.jsx';
-import EncabezadoPagina from '../components/EncabezadoPagina.jsx';
-import SubmenuConductor from '../components/SubmenuConductor.jsx';
-import * as val from '../utils/validaciones.js';
+import { useAuth } from '@/context/AuthContext.jsx';
+import { useData } from '@/context/DataContext.jsx';
+import { useFormulario } from '@/hooks/useFormulario.js';
+import { Campo, Selector } from '@/components/ui/Campos.jsx';
+import TablaDatos from '@/components/ui/TablaDatos.jsx';
+import Insignia from '@/components/ui/Insignia.jsx';
+import Alerta from '@/components/ui/Alerta.jsx';
+import EncabezadoPagina from '@/components/ui/EncabezadoPagina.jsx';
+import SubmenuConductor from '@/features/viajes/components/SubmenuConductor.jsx';
+import * as val from '@/utils/validaciones.js';
 
 const TIPOS = ['AUTOMOVIL', 'CAMPERO', 'CAMIONETA', 'MICROBUS', 'MOTOCICLETA'].map((t) => ({
   valor: t,
@@ -25,7 +25,7 @@ const INICIAL = {
 };
 
 /** RF02.6 – Gestión de vehículos. */
-export default function MisVehiculos() {
+export default function MisVehiculosPage() {
   const { sesion } = useAuth();
   const { db, registrarVehiculo } = useData();
   const [msg, setMsg] = useState(null);

@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx';
-import { useData } from '../context/DataContext.jsx';
-import { useFormulario } from '../hooks/useFormulario.js';
-import { Campo, Selector } from '../components/Campos.jsx';
-import Alerta from '../components/Alerta.jsx';
-import Insignia from '../components/Insignia.jsx';
-import EncabezadoPagina from '../components/EncabezadoPagina.jsx';
-import * as val from '../utils/validaciones.js';
-import { fecha } from '../utils/formato.js';
+import { useAuth } from '@/context/AuthContext.jsx';
+import { useData } from '@/context/DataContext.jsx';
+import { useFormulario } from '@/hooks/useFormulario.js';
+import { Campo, Selector } from '@/components/ui/Campos.jsx';
+import Alerta from '@/components/ui/Alerta.jsx';
+import Insignia from '@/components/ui/Insignia.jsx';
+import EncabezadoPagina from '@/components/ui/EncabezadoPagina.jsx';
+import * as val from '@/utils/validaciones.js';
+import { fecha } from '@/utils/formato.js';
 
 const CATEGORIAS = ['A2', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3'].map((c) => ({ valor: c, texto: c }));
 
@@ -243,7 +243,7 @@ function FormConductor({ sesion }) {
   );
 }
 
-export default function Perfil() {
+export default function PerfilPage() {
   const { sesion } = useAuth();
   const { validacionVigente, municipio } = useData();
   const location = useLocation();

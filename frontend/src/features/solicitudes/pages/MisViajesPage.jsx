@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx';
-import { useData } from '../context/DataContext.jsx';
-import TablaDatos from '../components/TablaDatos.jsx';
-import Insignia from '../components/Insignia.jsx';
-import Alerta from '../components/Alerta.jsx';
-import EncabezadoPagina from '../components/EncabezadoPagina.jsx';
-import { fechaHora, pesos } from '../utils/formato.js';
+import { useAuth } from '@/context/AuthContext.jsx';
+import { useData } from '@/context/DataContext.jsx';
+import TablaDatos from '@/components/ui/TablaDatos.jsx';
+import Insignia from '@/components/ui/Insignia.jsx';
+import Alerta from '@/components/ui/Alerta.jsx';
+import EncabezadoPagina from '@/components/ui/EncabezadoPagina.jsx';
+import { fechaHora, pesos } from '@/utils/formato.js';
 
 /** RF03.4 y RF03.5 – Solicitudes, reservas e historial del pasajero (vista v_historial_pasajero). */
-export default function MisViajes() {
+export default function MisViajesPage() {
   const { sesion } = useAuth();
   const { db, detalleViaje, cancelarReserva } = useData();
   const location = useLocation();

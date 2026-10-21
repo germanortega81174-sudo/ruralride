@@ -1,4 +1,4 @@
-import { IconoEstrella } from './Iconos.jsx';
+import { IconoEstrella } from '@/components/ui/Iconos.jsx';
 
 /** Muestra una calificación de 0 a 5 con texto alternativo. */
 export function Estrellas({ valor, total }) {

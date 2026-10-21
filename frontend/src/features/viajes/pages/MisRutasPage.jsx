@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { useAuth } from '../context/AuthContext.jsx';
-import { useData } from '../context/DataContext.jsx';
-import { useFormulario } from '../hooks/useFormulario.js';
-import { Campo, Selector } from '../components/Campos.jsx';
-import TablaDatos from '../components/TablaDatos.jsx';
-import Insignia from '../components/Insignia.jsx';
-import Alerta from '../components/Alerta.jsx';
-import EncabezadoPagina from '../components/EncabezadoPagina.jsx';
-import SubmenuConductor from '../components/SubmenuConductor.jsx';
-import * as val from '../utils/validaciones.js';
-import { duracion } from '../utils/formato.js';
+import { useAuth } from '@/context/AuthContext.jsx';
+import { useData } from '@/context/DataContext.jsx';
+import { useFormulario } from '@/hooks/useFormulario.js';
+import { Campo, Selector } from '@/components/ui/Campos.jsx';
+import TablaDatos from '@/components/ui/TablaDatos.jsx';
+import Insignia from '@/components/ui/Insignia.jsx';
+import Alerta from '@/components/ui/Alerta.jsx';
+import EncabezadoPagina from '@/components/ui/EncabezadoPagina.jsx';
+import SubmenuConductor from '@/features/viajes/components/SubmenuConductor.jsx';
+import * as val from '@/utils/validaciones.js';
+import { duracion } from '@/utils/formato.js';
 
 const INICIAL = {
   id_municipio_origen: '',
@@ -20,7 +20,7 @@ const INICIAL = {
 };
 
 /** RF02.1 – Registrar rutas. */
-export default function MisRutas() {
+export default function MisRutasPage() {
   const { sesion } = useAuth();
   const { db, municipio, registrarRuta } = useData();
   const [msg, setMsg] = useState('');

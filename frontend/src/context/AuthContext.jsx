@@ -2,7 +2,7 @@
 // Sesión simulada: en esta etapa no hay backend, por lo que el inicio de sesión
 // se valida contra los datos de prueba. Contraseña de todos los usuarios de prueba: RuralRide2026*
 import { createContext, useContext, useMemo, useState } from 'react';
-import { useData } from './DataContext.jsx';
+import { useData } from '@/context/DataContext.jsx';
 
 export const PASSWORD_DEMO = 'RuralRide2026*';
 const AuthContext = createContext(null);

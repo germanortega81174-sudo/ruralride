@@ -4,7 +4,7 @@
 // NO se conecta al backend. Más adelante cada función se reemplazará por una petición
 // a la API en Node.js.
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
-import datos from '../data/datosPrueba.json';
+import datos from '@/data/datosPrueba.json';
 
 const DataContext = createContext(null);
 

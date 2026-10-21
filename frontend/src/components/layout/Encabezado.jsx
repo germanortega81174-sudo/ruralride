@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx';
-import Logo from './Logo.jsx';
-import { IconoCerrar, IconoMenu } from './Iconos.jsx';
+import { useAuth } from '@/context/AuthContext.jsx';
+import Logo from '@/components/layout/Logo.jsx';
+import { IconoCerrar, IconoMenu } from '@/components/ui/Iconos.jsx';
 
 /** Encabezado con menú de navegación según el rol del usuario. En pantallas pequeñas se vuelve un menú desplegable. */
 export default function Encabezado() {

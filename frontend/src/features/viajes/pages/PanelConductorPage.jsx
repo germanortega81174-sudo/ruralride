@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx';
-import { useData } from '../context/DataContext.jsx';
-import TablaDatos from '../components/TablaDatos.jsx';
-import Insignia from '../components/Insignia.jsx';
-import Alerta from '../components/Alerta.jsx';
-import EncabezadoPagina from '../components/EncabezadoPagina.jsx';
-import SubmenuConductor from '../components/SubmenuConductor.jsx';
-import { Estrellas } from '../components/Estrellas.jsx';
-import { fechaHora } from '../utils/formato.js';
+import { useAuth } from '@/context/AuthContext.jsx';
+import { useData } from '@/context/DataContext.jsx';
+import TablaDatos from '@/components/ui/TablaDatos.jsx';
+import Insignia from '@/components/ui/Insignia.jsx';
+import Alerta from '@/components/ui/Alerta.jsx';
+import EncabezadoPagina from '@/components/ui/EncabezadoPagina.jsx';
+import SubmenuConductor from '@/features/viajes/components/SubmenuConductor.jsx';
+import { Estrellas } from '@/components/ui/Estrellas.jsx';
+import { fechaHora } from '@/utils/formato.js';
 
 /** RF02 y RF03.4 – Resumen del conductor y gestión de solicitudes recibidas. */
-export default function PanelConductor() {
+export default function PanelConductorPage() {
   const { sesion } = useAuth();
   const { db, detalleViaje, responderSolicitud, validacionVigente, reputacion, usuario } =
     useData();
