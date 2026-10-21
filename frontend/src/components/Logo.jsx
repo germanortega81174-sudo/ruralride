@@ -7,7 +7,9 @@ export default function Logo({ claro = false }) {
         <circle cx="22" cy="46" r="5" fill="#FAF7F0" />
         <circle cx="44" cy="46" r="5" fill="#FAF7F0" />
       </svg>
-      <span className="logo__texto">Rural<strong>Ride</strong></span>
+      <span className="logo__texto">
+        Rural<strong>Ride</strong>
+      </span>
     </span>
-  )
+  );
 }
