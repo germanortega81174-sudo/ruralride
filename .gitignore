@@ -1,0 +1,28 @@
+# Dependencias y compilados (React + Vite / Node.js)
+node_modules/
+dist/
+dist-ssr/
+build/
+coverage/
+
+# Variables de entorno: nunca se suben (solo .env.example)
+.env
+.env.*
+!.env.example
+
+# Registros
+logs/
+*.log
+npm-debug.log*
+
+# Respaldos de la base de datos con datos reales
+*.bak
+respaldos/
+
+# Editor y sistema operativo
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.local
