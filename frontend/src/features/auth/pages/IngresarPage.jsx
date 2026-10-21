@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth, PASSWORD_DEMO } from '../context/AuthContext.jsx';
-import { useFormulario } from '../hooks/useFormulario.js';
-import { Campo } from '../components/Campos.jsx';
-import Alerta from '../components/Alerta.jsx';
-import { correo, primeraFalla, requerido } from '../utils/validaciones.js';
+import { useAuth, PASSWORD_DEMO } from '@/context/AuthContext.jsx';
+import { useFormulario } from '@/hooks/useFormulario.js';
+import { Campo } from '@/components/ui/Campos.jsx';
+import Alerta from '@/components/ui/Alerta.jsx';
+import { correo, primeraFalla, requerido } from '@/utils/validaciones.js';
 
 const CUENTAS_DEMO = [
   { correo: 'carlos.perez@gmail.com', rol: 'Pasajero' },
@@ -13,7 +13,7 @@ const CUENTAS_DEMO = [
   { correo: 'luzmarina.pabon@ruralride.co', rol: 'Administradora' },
 ];
 
-export default function Ingresar() {
+export default function IngresarPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();

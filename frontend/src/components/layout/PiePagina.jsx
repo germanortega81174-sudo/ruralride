@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Logo from './Logo.jsx';
+import Logo from '@/components/layout/Logo.jsx';
 
 export default function PiePagina() {
   return (

@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useData } from '../context/DataContext.jsx';
-import { useFormulario } from '../hooks/useFormulario.js';
-import { Campo, Selector } from '../components/Campos.jsx';
-import TarjetaViaje from '../components/TarjetaViaje.jsx';
-import EncabezadoPagina from '../components/EncabezadoPagina.jsx';
-import { rango } from '../utils/validaciones.js';
+import { useData } from '@/context/DataContext.jsx';
+import { useFormulario } from '@/hooks/useFormulario.js';
+import { Campo, Selector } from '@/components/ui/Campos.jsx';
+import TarjetaViaje from '@/features/solicitudes/components/TarjetaViaje.jsx';
+import EncabezadoPagina from '@/components/ui/EncabezadoPagina.jsx';
+import { rango } from '@/utils/validaciones.js';
 
 /** RF03.1 – Buscar rutas y viajes. Los filtros se guardan en la URL para poder compartir la búsqueda. */
-export default function BuscarViajes() {
+export default function BuscarViajesPage() {
   const { db, detalleViaje } = useData();
   const [params, setParams] = useSearchParams();
   const filtros = {

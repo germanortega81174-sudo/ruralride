@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useFormulario } from '../hooks/useFormulario.js';
-import { Campo } from '../components/Campos.jsx';
-import Alerta from '../components/Alerta.jsx';
-import { correo, primeraFalla, requerido } from '../utils/validaciones.js';
+import { useFormulario } from '@/hooks/useFormulario.js';
+import { Campo } from '@/components/ui/Campos.jsx';
+import Alerta from '@/components/ui/Alerta.jsx';
+import { correo, primeraFalla, requerido } from '@/utils/validaciones.js';
 
-export default function RecuperarPassword() {
+export default function RecuperarPasswordPage() {
   const [enviado, setEnviado] = useState('');
   const form = useFormulario({ correo: '' }, (v) => ({
     correo: primeraFalla(requerido(v.correo, 'El correo'), correo(v.correo)),

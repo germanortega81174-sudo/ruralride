@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export default function NoEncontrado() {
+export default function NoEncontradoPage() {
   return (
     <section className="contenedor seccion seccion--estrecha texto-centro">
       <h1>Página no encontrada</h1>

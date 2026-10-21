@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useData } from '../context/DataContext.jsx';
-import { useAuth } from '../context/AuthContext.jsx';
-import { useFormulario } from '../hooks/useFormulario.js';
-import { Selector } from '../components/Campos.jsx';
-import Alerta from '../components/Alerta.jsx';
-import Insignia from '../components/Insignia.jsx';
-import { Estrellas } from '../components/Estrellas.jsx';
-import { duracion, fechaHora, pesos } from '../utils/formato.js';
+import { useData } from '@/context/DataContext.jsx';
+import { useAuth } from '@/context/AuthContext.jsx';
+import { useFormulario } from '@/hooks/useFormulario.js';
+import { Selector } from '@/components/ui/Campos.jsx';
+import Alerta from '@/components/ui/Alerta.jsx';
+import Insignia from '@/components/ui/Insignia.jsx';
+import { Estrellas } from '@/components/ui/Estrellas.jsx';
+import { duracion, fechaHora, pesos } from '@/utils/formato.js';
 
 /** RF03.2 y RF03.3 – Detalle del viaje y solicitud de cupo. */
-export default function DetalleViaje() {
+export default function DetalleViajePage() {
   const { id } = useParams();
   const { db, detalleViaje, solicitarCupo, reputacion } = useData();
   const { sesion } = useAuth();

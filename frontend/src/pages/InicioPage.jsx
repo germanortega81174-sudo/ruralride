@@ -1,11 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import { useData } from '../context/DataContext.jsx';
-import { useFormulario } from '../hooks/useFormulario.js';
-import { Selector, Campo } from '../components/Campos.jsx';
-import TarjetaViaje from '../components/TarjetaViaje.jsx';
-import { IconoBuscar, IconoEscudo, IconoEstrella, IconoUbicacion } from '../components/Iconos.jsx';
+import { useData } from '@/context/DataContext.jsx';
+import { useFormulario } from '@/hooks/useFormulario.js';
+import { Selector, Campo } from '@/components/ui/Campos.jsx';
+import TarjetaViaje from '@/features/solicitudes/components/TarjetaViaje.jsx';
+import {
+  IconoBuscar,
+  IconoEscudo,
+  IconoEstrella,
+  IconoUbicacion,
+} from '@/components/ui/Iconos.jsx';
 
-export default function Inicio() {
+export default function InicioPage() {
   const { db, detalleViaje } = useData();
   const navigate = useNavigate();
   const municipios = db.municipio.map((m) => ({

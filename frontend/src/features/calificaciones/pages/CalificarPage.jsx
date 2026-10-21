@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useData } from '../context/DataContext.jsx';
-import { useFormulario } from '../hooks/useFormulario.js';
-import { AreaTexto } from '../components/Campos.jsx';
-import { SelectorEstrellas } from '../components/Estrellas.jsx';
-import Alerta from '../components/Alerta.jsx';
-import { fechaHora } from '../utils/formato.js';
-import { longitud } from '../utils/validaciones.js';
+import { useData } from '@/context/DataContext.jsx';
+import { useFormulario } from '@/hooks/useFormulario.js';
+import { AreaTexto } from '@/components/ui/Campos.jsx';
+import { SelectorEstrellas } from '@/components/ui/Estrellas.jsx';
+import Alerta from '@/components/ui/Alerta.jsx';
+import { fechaHora } from '@/utils/formato.js';
+import { longitud } from '@/utils/validaciones.js';
 
 /** Solución propuesta SP.1 – Calificar el servicio (solo reservas COMPLETADAS, RN22). */
-export default function Calificar() {
+export default function CalificarPage() {
   const { id } = useParams();
   const { db, detalleViaje, calificar } = useData();
   const navigate = useNavigate();

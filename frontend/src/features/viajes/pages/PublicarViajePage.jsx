@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx';
-import { useData } from '../context/DataContext.jsx';
-import { useFormulario } from '../hooks/useFormulario.js';
-import { Campo, Selector } from '../components/Campos.jsx';
-import Alerta from '../components/Alerta.jsx';
-import EncabezadoPagina from '../components/EncabezadoPagina.jsx';
-import SubmenuConductor from '../components/SubmenuConductor.jsx';
-import * as val from '../utils/validaciones.js';
-import { pesos } from '../utils/formato.js';
+import { useAuth } from '@/context/AuthContext.jsx';
+import { useData } from '@/context/DataContext.jsx';
+import { useFormulario } from '@/hooks/useFormulario.js';
+import { Campo, Selector } from '@/components/ui/Campos.jsx';
+import Alerta from '@/components/ui/Alerta.jsx';
+import EncabezadoPagina from '@/components/ui/EncabezadoPagina.jsx';
+import SubmenuConductor from '@/features/viajes/components/SubmenuConductor.jsx';
+import * as val from '@/utils/validaciones.js';
+import { pesos } from '@/utils/formato.js';
 
 /** RF02.2 a RF02.5 – Publicar un viaje: ruta, horario, costo y cupos. */
-export default function PublicarViaje() {
+export default function PublicarViajePage() {
   const { sesion } = useAuth();
   const { db, municipio, publicarViaje, validacionVigente } = useData();
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx';
-import Alerta from './Alerta.jsx';
+import { useAuth } from '@/context/AuthContext.jsx';
+import Alerta from '@/components/ui/Alerta.jsx';
 
 /** Restringe una vista a usuarios con sesión y, opcionalmente, con un rol. */
 export default function RutaProtegida({ rol, children }) {

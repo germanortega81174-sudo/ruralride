@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useData } from '../context/DataContext.jsx';
-import { duracion, fechaHora, pesos } from '../utils/formato.js';
-import { Estrellas } from './Estrellas.jsx';
-import { IconoAsiento, IconoCarro, IconoFlecha, IconoReloj } from './Iconos.jsx';
+import { useData } from '@/context/DataContext.jsx';
+import { duracion, fechaHora, pesos } from '@/utils/formato.js';
+import { Estrellas } from '@/components/ui/Estrellas.jsx';
+import { IconoAsiento, IconoCarro, IconoFlecha, IconoReloj } from '@/components/ui/Iconos.jsx';
 
 /** Tarjeta reutilizable con el resumen de un viaje (vista v_viajes_disponibles). */
 export default function TarjetaViaje({ viaje }) {

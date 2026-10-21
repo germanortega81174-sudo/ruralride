@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { useAuth } from '../context/AuthContext.jsx';
-import { useData } from '../context/DataContext.jsx';
-import { useFormulario } from '../hooks/useFormulario.js';
-import { AreaTexto, Selector } from '../components/Campos.jsx';
-import TablaDatos from '../components/TablaDatos.jsx';
-import Insignia from '../components/Insignia.jsx';
-import Alerta from '../components/Alerta.jsx';
-import EncabezadoPagina from '../components/EncabezadoPagina.jsx';
-import { fecha } from '../utils/formato.js';
-import { longitud, primeraFalla, requerido } from '../utils/validaciones.js';
+import { useAuth } from '@/context/AuthContext.jsx';
+import { useData } from '@/context/DataContext.jsx';
+import { useFormulario } from '@/hooks/useFormulario.js';
+import { AreaTexto, Selector } from '@/components/ui/Campos.jsx';
+import TablaDatos from '@/components/ui/TablaDatos.jsx';
+import Insignia from '@/components/ui/Insignia.jsx';
+import Alerta from '@/components/ui/Alerta.jsx';
+import EncabezadoPagina from '@/components/ui/EncabezadoPagina.jsx';
+import { fecha } from '@/utils/formato.js';
+import { longitud, primeraFalla, requerido } from '@/utils/validaciones.js';
 
 function FormResolver({ fila, onResuelto, onCancelar }) {
   const { sesion } = useAuth();
@@ -77,7 +77,7 @@ function FormResolver({ fila, onResuelto, onCancelar }) {
 }
 
 /** RF04 – Validación comunitaria de conductores. */
-export default function AdminValidaciones() {
+export default function AdminValidacionesPage() {
   const { db, usuario } = useData();
   const [filtro, setFiltro] = useState('PENDIENTE');
   const [seleccion, setSeleccion] = useState(null);

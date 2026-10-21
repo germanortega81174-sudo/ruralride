@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import Encabezado from './Encabezado.jsx';
-import PiePagina from './PiePagina.jsx';
+import Encabezado from '@/components/layout/Encabezado.jsx';
+import PiePagina from '@/components/layout/PiePagina.jsx';
 
 /** Estructura común de todas las páginas: enlace para saltar al contenido, encabezado, contenido y pie. */
 export default function Plantilla() {
