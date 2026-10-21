@@ -12,6 +12,7 @@ Autor: German Augusto Ortega Angel.
 | `frontend/` | Aplicación web en React 19 + Vite (interfaz con datos de prueba)             |
 | `database/` | Scripts SQL de la base de datos `ruralride` (MySQL 8 / MariaDB 10.4)         |
 | `.github/`  | Plantilla de pull request usada en la revisión de código                     |
+| `docs/`     | Lista de chequeo de verificación del frontend (Evidencia 6)                  |
 
 El backend en Node.js + Express está planeado en el backlog (tareas RR-05 en adelante); por ahora el frontend trabaja con los datos de prueba exportados de la base de datos.
 
@@ -43,6 +44,7 @@ El backend en Node.js + Express está planeado en el backlog (tareas RR-05 en ad
 | ---------------------- | -------------------------------------------- |
 | `npm run dev`          | Servidor de desarrollo                        |
 | `npm run build`        | Compila la versión de producción en `dist/`   |
+| `npm test`             | Ejecuta las 33 pruebas con Vitest             |
 | `npm run lint`         | Revisa la calidad del código con ESLint       |
 | `npm run format`       | Aplica el formato de Prettier                 |
 

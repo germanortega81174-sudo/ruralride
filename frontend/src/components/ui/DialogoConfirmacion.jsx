@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useId, useRef } from 'react';
 
 /**
  * Ventana de confirmación accesible (elemento <dialog>). Reemplaza a window.confirm,
@@ -15,6 +15,8 @@ export default function DialogoConfirmacion({
   onCancelar,
 }) {
   const dialogoRef = useRef(null);
+  // id único por diálogo: puede haber varios en la misma página (por ejemplo, Mis viajes y el pie)
+  const idTitulo = useId();
 
   useEffect(() => {
     const dialogo = dialogoRef.current;
@@ -27,13 +29,13 @@ export default function DialogoConfirmacion({
     <dialog
       ref={dialogoRef}
       className="dialogo"
-      aria-labelledby="dialogo-titulo"
+      aria-labelledby={idTitulo}
       onCancel={(evento) => {
         evento.preventDefault();
         onCancelar();
       }}
     >
-      <h2 id="dialogo-titulo" className="h3">
+      <h2 id={idTitulo} className="h3">
         {titulo}
       </h2>
       <div className="dialogo__cuerpo">{children}</div>

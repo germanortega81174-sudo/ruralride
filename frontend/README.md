@@ -1,11 +1,12 @@
-# RuralRide – Frontend (versión inicial)
+# RuralRide – Frontend
 
-Primera versión funcional del frontend de **RuralRide – Plataforma de Transporte Solidario Rural**
-(Evidencia GA6-220501096-AA3/AA4-EV01, SENA – ADSO 3336056).
+Frontend de **RuralRide – Plataforma de Transporte Solidario Rural** en React 19 + Vite.
+Versión de la Evidencia 6 (GA7-220501096-AA4-EV01): módulos organizados por requerimiento,
+componentes reutilizables, reglas de negocio separadas y pruebas automáticas.
 
-> En esta etapa la interfaz **no se conecta al backend**. Los datos de prueba (`src/data/datosPrueba.json`)
-> se exportaron de la base de datos MySQL `ruralride` de la Evidencia 2 y las reglas de negocio se
-> simulan en `src/context/DataContext.jsx`. Los cambios se pierden al recargar la página.
+> El frontend todavía **no se conecta al backend**. Usa los datos de prueba exportados de la base
+> de datos `ruralride` (`src/data/datosPrueba.json`). Los cambios se guardan en el navegador y se
+> pueden borrar con **Restablecer datos de prueba**, en el pie de página.
 
 ## Requisitos
 
@@ -16,9 +17,10 @@ Primera versión funcional del frontend de **RuralRide – Plataforma de Transpo
 ```bash
 npm install
 npm run dev        # abre http://localhost:5173
+npm test           # 33 pruebas con Vitest
+npm run lint       # ESLint
+npm run build      # versión de producción en dist/
 ```
-
-Compilar para producción: `npm run build` y luego `npm run preview`.
 
 ## Cuentas de prueba (contraseña: `RuralRide2026*`)
 
@@ -33,15 +35,21 @@ Compilar para producción: `npm run build` y luego `npm run preview`.
 
 ```
 src/
-  components/   Componentes reutilizables (Encabezado, PiePagina, Campos, TablaDatos, TarjetaViaje, Alerta, Insignia, Estrellas…)
-  context/      DataContext (datos y reglas de negocio) y AuthContext (sesión simulada)
-  data/         Datos de prueba exportados de la base de datos
-  hooks/        useFormulario: formularios controlados con validación
-  pages/        Vistas: Inicio, Ingresar, Registro, RecuperarPassword, Perfil, BuscarViajes, DetalleViaje,
-                MisViajes, Calificar, PanelConductor, MisVehiculos, MisRutas, PublicarViaje, AdminValidaciones
-  utils/        Validaciones (obligatoriedad, formato, longitud) y formato de fechas y moneda
-  App.jsx       Rutas con React Router
-  index.css     Estilos, diseño responsivo y accesibilidad
+  components/ui/        Piezas reutilizables: CampoTexto, CampoSelector, CampoArea, TablaDatos,
+                        Pestanas, Migas, EstadoVacio, DialogoConfirmacion, Alerta, Insignia, Estrellas
+  components/layout/    Encabezado, PiePagina, Plantilla, Logo
+  features/auth/        RF-01: IngresarPage, RegistroPage, RecuperarPasswordPage, PerfilPage
+  features/viajes/      RF-02: PanelConductorPage, MisVehiculosPage, MisRutasPage, PublicarViajePage
+  features/solicitudes/ RF-03: BuscarViajesPage, DetalleViajePage, MisViajesPage, TarjetaViaje
+  features/validaciones/RF-04: AdminValidacionesPage
+  features/calificaciones/ RF-05: CalificarPage
+  pages/                InicioPage y NoEncontradoPage
+  routes/               AppRouter (todas las rutas) y RutaProtegida (sesión y rol)
+  context/              DataContext (estado compartido) y AuthContext (sesión)
+  services/             reglasNegocio.js (RN05–RN22, funciones puras) y almacenamiento.js
+  hooks/                useFormulario: formularios controlados con validación
+  utils/                validaciones, formato y accesibilidad
+  data/                 Datos de prueba exportados de la base de datos
 ```
 
 ## Rutas

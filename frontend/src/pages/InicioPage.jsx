@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import EstadoVacio from '@/components/ui/EstadoVacio.jsx';
 import { useData } from '@/context/DataContext.jsx';
 import { useFormulario } from '@/hooks/useFormulario.js';
 import CampoSelector from '@/components/ui/CampoSelector.jsx';
@@ -119,11 +120,23 @@ export default function InicioPage() {
           <h2 id="proximos" className="seccion__titulo">
             Próximos viajes con cupos
           </h2>
-          <div className="rejilla-tarjetas">
-            {proximos.map((v) => (
-              <TarjetaViaje key={v.id_viaje} viaje={v} />
-            ))}
-          </div>
+          {proximos.length ? (
+            <div className="rejilla-tarjetas">
+              {proximos.map((v) => (
+                <TarjetaViaje key={v.id_viaje} viaje={v} />
+              ))}
+            </div>
+          ) : (
+            <EstadoVacio
+              accion={
+                <Link to="/viajes" className="boton boton--secundario boton--chico">
+                  Ver todos los viajes
+                </Link>
+              }
+            >
+              Por ahora no hay viajes programados con cupos libres.
+            </EstadoVacio>
+          )}
         </div>
       </section>
     </>

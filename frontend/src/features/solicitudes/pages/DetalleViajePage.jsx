@@ -129,7 +129,12 @@ export default function DetalleViajePage() {
               {error}
             </Alerta>
           )}
-          {!sesion ? (
+          {v.estado !== 'PROGRAMADO' ? (
+            <Alerta tipo="aviso">
+              Este viaje está {v.estado.replace('_', ' ').toLowerCase()} y ya no recibe solicitudes
+              (RN17). <Link to="/viajes">Ver viajes programados</Link>
+            </Alerta>
+          ) : !sesion ? (
             <>
               <p>Ingrese para solicitar un cupo en este viaje.</p>
               <Link

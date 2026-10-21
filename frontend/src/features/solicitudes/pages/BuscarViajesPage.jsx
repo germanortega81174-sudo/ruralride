@@ -13,12 +13,16 @@ import { rango } from '@/utils/validaciones.js';
 export default function BuscarViajesPage() {
   const { db, detalleViaje } = useData();
   const [params, setParams] = useSearchParams();
-  const filtros = {
-    origen: params.get('origen') || '',
-    destino: params.get('destino') || '',
-    fecha: params.get('fecha') || '',
-    cupos: params.get('cupos') || '1',
-  };
+  // Los filtros viven en la URL (?origen=&destino=…) para poder compartir o volver a la búsqueda
+  const filtros = useMemo(
+    () => ({
+      origen: params.get('origen') || '',
+      destino: params.get('destino') || '',
+      fecha: params.get('fecha') || '',
+      cupos: params.get('cupos') || '1',
+    }),
+    [params]
+  );
   const form = useFormulario(filtros, (v) => ({
     destino: v.origen && v.origen === v.destino ? 'El destino debe ser distinto del origen.' : '',
     cupos: rango(v.cupos, 1, 6, 'Los cupos'),
@@ -35,8 +39,7 @@ export default function BuscarViajesPage() {
         .filter((v) => !filtros.fecha || v.fecha_hora_salida.startsWith(filtros.fecha))
         .filter((v) => v.cupos_disponibles >= Number(filtros.cupos || 1))
         .sort((a, b) => a.fecha_hora_salida.localeCompare(b.fecha_hora_salida)),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [db, params]
+    [db, detalleViaje, filtros]
   );
 
   const limpiar = () => {
