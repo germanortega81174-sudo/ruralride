@@ -33,12 +33,20 @@ const TITULOS = {
   '/admin/validaciones': 'Validación comunitaria',
 };
 
+/** Título de la pestaña del navegador; las rutas con parámetros (:id) tienen su propio título. */
+const tituloPara = (pathname) => {
+  if (TITULOS[pathname]) return TITULOS[pathname];
+  if (pathname.startsWith('/mis-viajes/calificar/')) return 'Calificar viaje';
+  if (pathname.startsWith('/viajes/')) return 'Detalle del viaje';
+  return 'Página no encontrada';
+};
+
 /** Al cambiar de página: actualiza el título, sube al inicio y mueve el foco al contenido (accesibilidad). */
 function GestorNavegacion() {
   const { pathname } = useLocation();
   const primeraCarga = useRef(true);
   useEffect(() => {
-    document.title = `${TITULOS[pathname] || 'Detalle'} | RuralRide`;
+    document.title = `${tituloPara(pathname)} | RuralRide`;
     if (primeraCarga.current) {
       primeraCarga.current = false; // en la carga inicial el foco queda en el enlace "Saltar al contenido"
       return;
